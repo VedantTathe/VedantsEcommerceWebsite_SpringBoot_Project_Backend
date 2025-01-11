@@ -8,4 +8,4 @@ RUN ls -l target/  # This will show the contents of the target directory
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build target/SampleProject-0.0.1-SNAPSHOT.jar SampleProject.jar
 EXPOSE 9191
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+ENTRYPOINT ["java", "-jar", "SampleProject.jar"]
