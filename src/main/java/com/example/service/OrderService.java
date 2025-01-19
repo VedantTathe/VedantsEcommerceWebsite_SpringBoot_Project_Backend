@@ -1,7 +1,10 @@
 package com.example.service;
 
 import com.example.entity.Order;
+import com.example.entity.User;
 import com.example.repository.OrderRepository;
+import com.example.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
@@ -46,6 +51,19 @@ public class OrderService {
     }
 
     public void deleteOrder(Long id) {
-        orderRepository.deleteById(id);
+       orderRepository.deleteById(id);
+    }
+    
+    public List<Order> getOrdersByUserId(Long userId) {
+        // Find the user first
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            // Fetch all orders that belong to this user
+            return orderRepository.findByUser(user);
+        } else {
+            throw new RuntimeException("User not found with id: " + userId);
+        }
     }
 }
