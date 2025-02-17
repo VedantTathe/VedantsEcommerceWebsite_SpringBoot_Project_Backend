@@ -54,11 +54,13 @@ public class UserService {
     }
     
     public JwtResponse authenticateUser(LoginRequest loginRequest) {
-        // Dummy validation (Replace with DB validation)
-    	List<User> list = getAllUsers();
+    	List<User> list = userRepository.findAll();
+    	System.out.println(list);
     	for(User user: list)
     	{
-    		System.out.println(user.getEmail()+ " "+ user.getPassword());
+    		
+    		
+    		System.out.println(user.getEmail()+ " hi "+ user.getPassword());
     		System.out.println(loginRequest.getEmail()+ " "+ loginRequest.getPassword());
     		if(user.getEmail().equals(loginRequest.getEmail()) && user.getPassword().equals(loginRequest.getPassword()))
     		{
@@ -66,6 +68,7 @@ public class UserService {
     			if(token==null)
     				return null;
     			
+    			System.out.println(token);
     			return new JwtResponse(token, user);
     		}
     	}

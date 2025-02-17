@@ -63,11 +63,14 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
     
+    
     @PostMapping("/auth/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+    	System.out.println(loginRequest);
         JwtResponse jwtresp = userService.authenticateUser(loginRequest);
 //        System.out.println("token: "+token);
         if (jwtresp != null) {
+        	
             return ResponseEntity.ok(jwtresp);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");

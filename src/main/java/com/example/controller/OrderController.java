@@ -14,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/orders")
 @CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "https://vedantselectrosoft-demo.vercel.app")
 public class OrderController {
 
     @Autowired
